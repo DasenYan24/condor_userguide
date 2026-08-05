@@ -16,6 +16,7 @@ Requirements = (TARGET.Machine=="taishan")
 # Requirements = (TARGET.Machine=="shanshuimeng")
 # Requirements = (TARGET.Machine=="shuitianxu")
 # Requirements = (TARGET.Machine=="tianshuisong")
+# Requirements = (TARGET.Machine=="ditiantai")
 
 # 日志文件
 Log        = logs/job_$(Cluster).$(Process).log

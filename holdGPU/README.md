@@ -27,6 +27,7 @@ Requirements = (TARGET.Machine=="taishan")
 - shanshuimeng
 - shuitianxu
 - tianshuisong
+- ditiantai
 
 ### 2. 提交作业
 
@@ -99,4 +100,3 @@ huashan 的所有 GPU:
   [2] GPU-81455554
   ...
 ```
-
