@@ -1,0 +1,22 @@
+universe = vanilla
+executable = $(demo_root)/common/run.sh
+initialdir = $(demo_root)/02-shared-data
+# 代码在 scratch 中；数据和结果使用 CephFS 绝对路径。
+arguments = "$(python_executable) inspect_paths.py --mode shared-data --input $(demo_root)/data/numbers.txt --output $(demo_root)/02-shared-data/results/result_$(ClusterId).$(ProcId) --pause-seconds $(pause_seconds:0)"
+requirements = (TARGET.Machine == "$(execute_machine)")
+
+request_cpus = 1
+request_memory = 128MB
+request_disk = 20MB
+request_gpus = 0
+
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+transfer_input_files = $(demo_root)/common/inspect_paths.py
+# 结果已经直接写入共享目录，不再收集其他 scratch 结果；stdout/stderr 仍回传。
+transfer_output_files = ""
+
+output = logs/job_$(ClusterId).$(ProcId).out
+error = logs/job_$(ClusterId).$(ProcId).err
+log = logs/job_$(ClusterId).log
+queue

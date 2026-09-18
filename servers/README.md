@@ -58,11 +58,16 @@
 
 ## 共享存储映射
 
-当前清单能够确认的共享存储映射如下：
+集群提供 CephFS 和 NFS 两套共享存储，内容不会自动同步。CephFS 挂载范围依据 2026-09-17 运维验收记录补充；NFS 保留 2026-07-20 资产清单已确认的范围。
 
-| NFS 源 | 计算节点挂载点 | 已确认使用节点 |
-| ------ | -------------- | -------------- |
-| `192.168.62.185:/mnt/lab` | `/mnt/net1` | taishan、hengshan、shuitianxu、ditiantai、shanshuimeng |
+| 类型 | 存储来源 | 节点访问路径 | 已确认挂载的 HTCondor 节点 |
+| --- | --- | --- | --- |
+| CephFS | fengdiguan、huoleishihe、shanhuobi 共同提供的 CephFS `/shared` | `/mnt/cephfs` | taishan、huashan、hengshan、shuitianxu、ditiantai、shanshuimeng |
+| NFS | fengtianxiaoxu（`192.168.62.185`）的 `/mnt/lab` | `/mnt/net1` | taishan、hengshan、shuitianxu、ditiantai、shanshuimeng |
+
+此外，shanfenggu、dizelin、fengtianxiaoxu、tiandipi、tianhuotongren、huotiandayou、dishanqian、leidiyu、zeleisui 也已挂载 `/mnt/cephfs`，合计 15 台客户端。三台 CephFS 存储服务器未配置该客户端挂载；tianshuisong 尚未完成挂载确认。
+
+`/mnt/cephfs` 用于新项目的数据、代码和结果，`hot-small` 子目录适合运行环境和常用小文件；`/mnt/net1` 存放原有的共享数据和环境。文件存放建议见[首页共享存储说明](../readme.md#共享存储)。
 
 `/mnt/net0` 的来源未在本次资产清单中确认。确认新的存储源之前，不应继续使用旧文档中的地址。
 

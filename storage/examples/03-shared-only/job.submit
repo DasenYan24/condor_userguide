@@ -1,0 +1,20 @@
+universe = vanilla
+executable = $(demo_root)/common/run.sh
+# NO 模式下，执行节点也必须能访问这个实际工作目录。
+initialdir = $(demo_root)/03-shared-only
+arguments = "$(python_executable) $(demo_root)/common/inspect_paths.py --mode shared-only --input $(demo_root)/data/numbers.txt --output results/result_$(ClusterId).$(ProcId) --pause-seconds $(pause_seconds:0)"
+# 仅在前两例已验证该节点共享路径可用后使用；不假定所有节点的文件系统域相同。
+requirements = (TARGET.Machine == "$(execute_machine)") && (TARGET.FileSystemDomain == "$(execute_filesystem_domain)")
+
+request_cpus = 1
+request_memory = 128MB
+request_disk = 20MB
+request_gpus = 0
+
+should_transfer_files = NO
+transfer_executable = False
+
+output = logs/job_$(ClusterId).$(ProcId).out
+error = logs/job_$(ClusterId).$(ProcId).err
+log = logs/job_$(ClusterId).log
+queue

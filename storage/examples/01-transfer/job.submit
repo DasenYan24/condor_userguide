@@ -1,0 +1,22 @@
+# 通过 condor_submit 的 demo_root 和 python_executable 参数填写真实绝对路径。
+universe = vanilla
+executable = $(demo_root)/common/run.sh
+initialdir = $(demo_root)/01-transfer
+arguments = "$(python_executable) inspect_paths.py --mode transfer --input numbers.txt --output result_$(ClusterId).$(ProcId) --pause-seconds $(pause_seconds:0)"
+requirements = (TARGET.Machine == "$(execute_machine)")
+
+request_cpus = 1
+request_memory = 128MB
+request_disk = 20MB
+request_gpus = 0
+
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+# 绝对输入路径传到 scratch 后，以文件名访问；共享 Python 不传输。
+transfer_input_files = $(demo_root)/common/inspect_paths.py,$(demo_root)/data/numbers.txt
+transfer_output_files = result_$(ClusterId).$(ProcId)
+
+output = logs/job_$(ClusterId).$(ProcId).out
+error = logs/job_$(ClusterId).$(ProcId).err
+log = logs/job_$(ClusterId).log
+queue
